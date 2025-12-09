@@ -1,34 +1,35 @@
- <footer class="bg-dark text-white py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5>About EShop</h5>
-                    <p>Your one-stop destination for quality products at great prices.</p>
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="mb-8 md:mb-0">
+                    <h5 class="text-xl font-bold mb-4 text-primary">About EShop</h5>
+                    <p class="text-gray-400 leading-relaxed">Your one-stop destination for quality products at great prices. We believe in providing the best shopping experience for our customers.</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="?page=home" class="text-light text-decoration-none">Home</a></li>
-                        <li><a href="?page=products" class="text-light text-decoration-none">Products</a></li>
-                        <li><a href="?page=about" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="?page=contact" class="text-light text-decoration-none">Contact</a></li>
+                <div class="mb-8 md:mb-0">
+                    <h5 class="text-xl font-bold mb-4 text-primary">Quick Links</h5>
+                    <ul class="space-y-2">
+                        <li><a href="?page=home" class="text-gray-400 hover:text-white transition duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> Home</a></li>
+                        <li><a href="?page=products" class="text-gray-400 hover:text-white transition duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> Products</a></li>
+                        <li><a href="?page=about" class="text-gray-400 hover:text-white transition duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> About</a></li>
+                        <li><a href="?page=contact" class="text-gray-400 hover:text-white transition duration-300 flex items-center"><i class="fas fa-chevron-right text-xs mr-2"></i> Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5>Follow Us</h5>
-                    <a href="https://www.facebook.com/YASIRADNANSAMI" target="_blank" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/_myself_mishu/" target="_blank" class="text-light me-3"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/in/yasiradnan-/" target="_blank" class="text-light"><i class="fab fa-linkedin-in"></i></a>
+                <div>
+                    <h5 class="text-xl font-bold mb-4 text-primary">Follow Us</h5>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/YASIRADNANSAMI" target="_blank" class="bg-gray-800 hover:bg-blue-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/_myself_mishu/" target="_blank" class="bg-gray-800 hover:bg-pink-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/yasiradnan-/" target="_blank" class="bg-gray-800 hover:bg-blue-700 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
-            <hr class="my-4">
-            <div class="text-center">
+            <hr class="border-gray-800 my-8">
+            <div class="text-center text-gray-500">
                 <p>&copy; 2024 EShop. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/script.js"></script>
 </body>
 </html>

@@ -1,165 +1,189 @@
 <?php include "include/header.php"; ?>
 
     <!-- Signup Section -->
-    <section class="signup-section py-5 min-vh-100 d-flex align-items-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 mx-auto">
-                    <div class="card shadow-lg">
-                        <div class="card-body p-5">
-                            <div class="text-center mb-4">
-                                <i class="fas fa-user-plus display-4 text-primary mb-3"></i>
-                                <h2 class="card-title">Create Your Account</h2>
-                                <p class="text-muted">Join EShop and start shopping today!</p>
+    <section class="py-12 min-h-screen flex items-center bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-colors duration-300">
+                    <div class="p-8 md:p-12">
+                        <div class="text-center mb-8">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
+                                <i class="fas fa-user-plus text-3xl"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Create Your Account</h2>
+                            <p class="text-gray-600 dark:text-gray-400">Join EShop and start shopping today!</p>
+                        </div>
+
+                        <form id="signupForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="firstName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-user text-gray-400"></i>
+                                        </div>
+                                        <input type="text" id="firstName" class="pl-10 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="First Name" required>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="lastName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-user text-gray-400"></i>
+                                        </div>
+                                        <input type="text" id="lastName" class="pl-10 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="Last Name" required>
+                                    </div>
+                                </div>
                             </div>
 
-                            <form id="signupForm">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="firstName" class="form-label">First Name</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-envelope text-gray-400"></i>
+                                    </div>
+                                    <input type="email" id="email" class="pl-10 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="your@email.com" required>
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">We'll never share your email with anyone else.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-phone text-gray-400"></i>
                                         </div>
+                                        <input type="tel" id="phone" class="pl-10 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="(555) 123-4567">
                                     </div>
+                                </div>
 
-                                    <div class="col-md-6 mb-3">
-                                        <label for="lastName" class="form-label">Last Name</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                                <div>
+                                    <label for="dob" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date of Birth</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-calendar text-gray-400"></i>
                                         </div>
+                                        <input type="date" id="dob" class="pl-10 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors">
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                        <input type="email" class="form-control" id="email" placeholder="your@email.com" required>
+                            <div>
+                                <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-map-marker-alt text-gray-400"></i>
                                     </div>
-                                    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                    <input type="text" id="address" class="pl-10 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="Street Address" required>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                                <div class="md:col-span-6">
+                                    <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">City</label>
+                                    <input type="text" id="city" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="City" required>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="phone" class="form-label">Phone Number</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            <input type="tel" class="form-control" id="phone" placeholder="(555) 123-4567">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="dob" class="form-label">Date of Birth</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                            <input type="date" class="form-control" id="dob">
-                                        </div>
-                                    </div>
+                                <div class="md:col-span-3">
+                                    <label for="state" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">State</label>
+                                    <input type="text" id="state" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="State" required>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Address</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                        <input type="text" class="form-control" id="address" placeholder="Street Address" required>
+                                <div class="md:col-span-3">
+                                    <label for="zip" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ZIP Code</label>
+                                    <input type="text" id="zip" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="ZIP" required>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="country" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country</label>
+                                <select id="country" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors" required>
+                                    <option value="">Select Country</option>
+                                    <option value="USA">United States</option>
+                                    <option value="CAN">Canada</option>
+                                    <option value="MEX">Mexico</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="AUS">Australia</option>
+                                    <option value="IND">India</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <hr class="border-gray-200 dark:border-gray-700">
+
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-lock text-gray-400"></i>
                                     </div>
+                                    <input type="password" id="password" class="pl-10 pr-12 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="Create a strong password" required>
+                                    <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                                    <i class="fas fa-info-circle"></i> 
+                                    Password must be at least 8 characters with uppercase, lowercase, and numbers.
+                                </p>
+                            </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="city" class="form-label">City</label>
-                                        <input type="text" class="form-control" id="city" placeholder="City" required>
+                            <div>
+                                <label for="confirmPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirm Password</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-lock text-gray-400"></i>
                                     </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="state" class="form-label">State</label>
-                                        <input type="text" class="form-control" id="state" placeholder="State" required>
-                                    </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="zip" class="form-label">ZIP Code</label>
-                                        <input type="text" class="form-control" id="zip" placeholder="ZIP" required>
-                                    </div>
+                                    <input type="password" id="confirmPassword" class="pl-10 pr-12 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 transition-colors" placeholder="Re-enter your password" required>
+                                    <button type="button" id="toggleConfirmPassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="country" class="form-label">Country</label>
-                                    <select class="form-select" id="country" required>
-                                        <option value="">Select Country</option>
-                                        <option value="USA">United States</option>
-                                        <option value="CAN">Canada</option>
-                                        <option value="MEX">Mexico</option>
-                                        <option value="UK">United Kingdom</option>
-                                        <option value="AUS">Australia</option>
-                                        <option value="IND">India</option>
-                                        <option value="Other">Other</option>
-                                    </select>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary/30 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary/60 dark:ring-offset-gray-800" required>
                                 </div>
+                                <label for="terms" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                    I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+                                </label>
+                            </div>
 
-                                <hr class="my-4">
-
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                        <input type="password" class="form-control" id="password" placeholder="Create a strong password" required>
-                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                    <small class="form-text text-muted">
-                                        <i class="fas fa-info-circle"></i> 
-                                        Password must be at least 8 characters with uppercase, lowercase, and numbers.
-                                    </small>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="newsletter" type="checkbox" checked class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary/30 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary/60 dark:ring-offset-gray-800">
                                 </div>
+                                <label for="newsletter" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                    Subscribe to our newsletter for exclusive offers and updates
+                                </label>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password" required>
-                                        <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-primary/30">
+                                <i class="fas fa-user-check"></i> Create Account
+                            </button>
 
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="terms" required>
-                                    <label class="form-check-label" for="terms">
-                                        I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
-                                    </label>
-                                </div>
+                            <div class="relative flex py-2 items-center">
+                                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+                                <span class="flex-shrink-0 mx-4 text-gray-400 text-sm">OR</span>
+                                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+                            </div>
 
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="newsletter" checked>
-                                    <label class="form-check-label" for="newsletter">
-                                        Subscribe to our newsletter for exclusive offers and updates
-                                    </label>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
-                                    <i class="fas fa-user-check"></i> Create Account
+                            <div class="space-y-3">
+                                <button type="button" class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white font-medium py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-300 flex items-center justify-center gap-2">
+                                    <i class="fab fa-google text-red-500"></i> Sign Up with Google
                                 </button>
-
-                                <div class="divider text-center my-4">
-                                    <span class="bg-white px-2 text-muted">OR</span>
-                                </div>
-
-                                <button type="button" class="btn btn-outline-secondary btn-lg w-100 mb-2">
-                                    <i class="fab fa-google"></i> Sign Up with Google
+                                <button type="button" class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white font-medium py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-300 flex items-center justify-center gap-2">
+                                    <i class="fab fa-facebook-f text-blue-600"></i> Sign Up with Facebook
                                 </button>
-                                <button type="button" class="btn btn-outline-secondary btn-lg w-100 mb-3">
-                                    <i class="fab fa-facebook-f"></i> Sign Up with Facebook
-                                </button>
+                            </div>
 
-                                <div class="text-center">
-                                    <p class="text-muted">Already have an account? <a href="?page=login" class="text-decoration-none fw-bold">Sign in here</a></p>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="text-center mt-6">
+                                <p class="text-gray-600 dark:text-gray-400">Already have an account? <a href="?page=login" class="text-primary font-bold hover:underline">Sign in here</a></p>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -262,21 +286,21 @@
                 feedbackClass = '';
             } else if (strength < 2) {
                 feedbackText = '⚠️ Weak password';
-                feedbackClass = 'text-danger';
+                feedbackClass = 'text-red-500';
             } else if (strength < 4) {
                 feedbackText = '⚡ Fair password';
-                feedbackClass = 'text-warning';
+                feedbackClass = 'text-yellow-500';
             } else {
                 feedbackText = '✓ Strong password';
-                feedbackClass = 'text-success';
+                feedbackClass = 'text-green-500';
             }
 
             if (document.getElementById('passwordStrength')) {
                 document.getElementById('passwordStrength').textContent = feedbackText;
-                document.getElementById('passwordStrength').className = `mt-2 ${feedbackClass} small fw-bold`;
+                document.getElementById('passwordStrength').className = `mt-2 ${feedbackClass} text-xs font-bold`;
             } else if (feedbackText) {
                 passwordFeedback.textContent = feedbackText;
-                passwordFeedback.className = `mt-2 ${feedbackClass} small fw-bold`;
+                passwordFeedback.className = `mt-2 ${feedbackClass} text-xs font-bold`;
                 this.parentNode.appendChild(passwordFeedback);
             }
         });

@@ -4,43 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EShop - Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                        dark: '#1F2937',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-gray-50 font-sans antialiased">
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="?page=home">
-                <i class="fas fa-shopping-bag"></i> EShop
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link <?php if($_GET['page']=='home'){echo "active";}?>" href="?page=home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?php if($_GET['page']=='products'){echo "active";}?>" href="?page=products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?php if($_GET['page']=='about'){echo "active";}?>" href="?page=about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?php if($_GET['page']=='contact'){echo "active";}?>" href="?page=contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?php if($_GET['page']=='login'){echo "active";}?>" href="?page=login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?php if($_GET['page']=='cart'){echo "active";}?>" href="?page=cart">
-                            <i class="fas fa-shopping-cart"></i> Cart <span class="badge bg-warning text-dark ms-1">0</span>
-                        </a>
-                    </li>
-                </ul>
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="?page=home" class="flex-shrink-0 flex items-center text-primary text-2xl font-bold">
+                        <i class="fas fa-shopping-bag mr-2"></i> EShop
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="?page=home" class="<?php echo ($_GET['page']=='home') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Home</a>
+                    <a href="?page=products" class="<?php echo ($_GET['page']=='products') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Products</a>
+                    <a href="?page=about" class="<?php echo ($_GET['page']=='about') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">About</a>
+                    <a href="?page=contact" class="<?php echo ($_GET['page']=='contact') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Contact</a>
+                    <a href="?page=login" class="<?php echo ($_GET['page']=='login') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Login</a>
+                    <a href="?page=cart" class="relative <?php echo ($_GET['page']=='cart') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="?page=home" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='home') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Home</a>
+                <a href="?page=products" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='products') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Products</a>
+                <a href="?page=about" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='about') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">About</a>
+                <a href="?page=contact" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='contact') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Contact</a>
+                <a href="?page=login" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='login') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Login</a>
+                <a href="?page=cart" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='cart') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Cart (0)</a>
             </div>
         </div>
     </nav>
+    <script>
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>

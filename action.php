@@ -24,4 +24,22 @@ if(isset($_GET['page'])) {
     else if($_GET['page'] == 'cart') {
         include 'pages/cart.php';
     } 
+    else if($_GET['page'] == 'admin/dashboard') {
+        include 'pages/admin/dashboard.php';
+    }
+    else if($_GET['page'] == 'admin/products') {
+        include 'pages/admin/products.php';
+    }
+    else if($_GET['page'] == 'admin/add-product') {
+        include 'pages/admin/add-product.php';
+    }
+    else if($_GET['page'] == 'admin/orders') {
+        include 'pages/admin/orders.php';
+    }
+    else if($_GET['page'] == 'admin/customers') {
+        include 'pages/admin/customers.php';
+    }
+    else if($_GET['page'] == 'admin/login') {
+        include 'pages/admin/login.php';
+    }
 }
