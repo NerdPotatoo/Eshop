@@ -1,3 +1,46 @@
+<?php
+session_start();
+
+// Redirect if already logged in
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    header('Location: ?page=admin/dashboard');
+    exit();
+}
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Controllers\AdminAuthController;
+
+$authController = new AdminAuthController();
+
+// Check if any admin exists, if not redirect to setup
+if (!$authController->hasAdmins()) {
+    header('Location: ?page=admin/setup');
+    exit();
+}
+
+$error = '';
+$success = '';
+
+// Handle login form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if (empty($username) || empty($password)) {
+        $error = 'Please enter both username and password';
+    } else {
+        $result = $authController->login($username, $password);
+        
+        if ($result['success']) {
+            header('Location: ?page=admin/dashboard');
+            exit();
+        } else {
+            $error = $result['message'];
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,14 +75,20 @@
                     <p class="text-gray-500 mt-2">Sign in to manage your store</p>
                 </div>
 
-                <form action="?page=admin/dashboard" method="POST" class="space-y-6">
+                <?php if ($error): ?>
+                    <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+                        <i class="fas fa-exclamation-circle mr-2"></i><?php echo htmlspecialchars($error); ?>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST" class="space-y-6">
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-envelope text-gray-400"></i>
+                                <i class="fas fa-user text-gray-400"></i>
                             </div>
-                            <input type="email" id="email" name="email" class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="admin@eshop.com" required>
+                            <input type="text" id="username" name="username" class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="admin" required>
                         </div>
                     </div>
 

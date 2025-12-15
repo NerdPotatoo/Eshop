@@ -1,4 +1,42 @@
-<?php include "include/header.php"; ?>
+<?php
+session_start();
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Controllers\AdminAuthController;
+use App\configs\Database;
+
+// Check if admin is logged in
+AdminAuthController::checkAuth();
+
+// Get database connection
+$database = new Database();
+$conn = $database->connect();
+
+// Fetch stats
+$totalOrders = $conn->query("SELECT COUNT(*) as count FROM orders")->fetch()['count'] ?? 0;
+$totalProducts = $conn->query("SELECT COUNT(*) as count FROM products")->fetch()['count'] ?? 0;
+$totalCustomers = $conn->query("SELECT COUNT(*) as count FROM users")->fetch()['count'] ?? 0;
+$totalSales = $conn->query("SELECT COALESCE(SUM(total_amount), 0) as total FROM orders WHERE status = 'Completed'")->fetch()['total'] ?? 0;
+
+// Fetch recent orders
+$recentOrdersQuery = "SELECT o.id, o.total_amount, o.status, o.created_at, u.name as customer_name 
+                      FROM orders o 
+                      LEFT JOIN users u ON o.user_id = u.id 
+                      ORDER BY o.created_at DESC 
+                      LIMIT 5";
+$recentOrders = $conn->query($recentOrdersQuery)->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch top products
+$topProductsQuery = "SELECT p.title, p.image, COUNT(oi.id) as sales_count, SUM(oi.price * oi.quantity) as revenue
+                     FROM products p
+                     LEFT JOIN order_items oi ON p.id = oi.product_id
+                     GROUP BY p.id
+                     ORDER BY sales_count DESC
+                     LIMIT 5";
+$topProducts = $conn->query($topProductsQuery)->fetchAll(PDO::FETCH_ASSOC);
+
+include "include/header.php"; 
+?>
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -7,17 +45,14 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 mb-1">Total Sales</p>
-                    <h3 class="text-2xl font-bold text-gray-800">$124,592</h3>
+                    <h3 class="text-2xl font-bold text-gray-800">$<?php echo number_format($totalSales, 2); ?></h3>
                 </div>
                 <div class="p-3 bg-primary/10 rounded-full text-primary">
                     <i class="fas fa-dollar-sign text-xl"></i>
                 </div>
             </div>
             <div class="mt-4 flex items-center text-sm">
-                <span class="text-green-500 flex items-center font-medium">
-                    <i class="fas fa-arrow-up mr-1"></i> 12.5%
-                </span>
-                <span class="text-gray-400 ml-2">vs last month</span>
+                <span class="text-gray-400">Completed orders only</span>
             </div>
         </div>
 
@@ -26,17 +61,14 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 mb-1">Total Orders</p>
-                    <h3 class="text-2xl font-bold text-gray-800">1,452</h3>
+                    <h3 class="text-2xl font-bold text-gray-800"><?php echo $totalOrders; ?></h3>
                 </div>
                 <div class="p-3 bg-secondary/10 rounded-full text-secondary">
                     <i class="fas fa-shopping-bag text-xl"></i>
                 </div>
             </div>
             <div class="mt-4 flex items-center text-sm">
-                <span class="text-green-500 flex items-center font-medium">
-                    <i class="fas fa-arrow-up mr-1"></i> 8.2%
-                </span>
-                <span class="text-gray-400 ml-2">vs last month</span>
+                <span class="text-gray-400">All time orders</span>
             </div>
         </div>
 
@@ -45,17 +77,14 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-500 mb-1">Total Products</p>
-                    <h3 class="text-2xl font-bold text-gray-800">356</h3>
+                    <h3 class="text-2xl font-bold text-gray-800"><?php echo $totalProducts; ?></h3>
                 </div>
                 <div class="p-3 bg-blue-100 rounded-full text-blue-500">
                     <i class="fas fa-box text-xl"></i>
                 </div>
             </div>
             <div class="mt-4 flex items-center text-sm">
-                <span class="text-blue-500 flex items-center font-medium">
-                    <i class="fas fa-plus mr-1"></i> 24
-                </span>
-                <span class="text-gray-400 ml-2">new items</span>
+                <span class="text-gray-400">In catalog</span>
             </div>
         </div>
 
@@ -63,18 +92,15 @@
         <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-orange-500">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-500 mb-1">New Customers</p>
-                    <h3 class="text-2xl font-bold text-gray-800">89</h3>
+                    <p class="text-sm font-medium text-gray-500 mb-1">Total Customers</p>
+                    <h3 class="text-2xl font-bold text-gray-800"><?php echo $totalCustomers; ?></h3>
                 </div>
                 <div class="p-3 bg-orange-100 rounded-full text-orange-500">
                     <i class="fas fa-users text-xl"></i>
                 </div>
             </div>
             <div class="mt-4 flex items-center text-sm">
-                <span class="text-red-500 flex items-center font-medium">
-                    <i class="fas fa-arrow-down mr-1"></i> 2.1%
-                </span>
-                <span class="text-gray-400 ml-2">vs last month</span>
+                <span class="text-gray-400">Registered users</span>
             </div>
         </div>
     </div>

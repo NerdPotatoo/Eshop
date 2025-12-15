@@ -42,4 +42,17 @@ if(isset($_GET['page'])) {
     else if($_GET['page'] == 'admin/login') {
         include 'pages/admin/login.php';
     }
+    else if($_GET['page'] == 'admin/setup') {
+        include 'pages/admin/setup.php';
+    }
+    else if($_GET['page'] == 'logout') {
+        include 'pages/logout.php';
+    }
+    else {
+        // Default to home page if route not found
+        include 'pages/index.php';
+    }
+} else {
+    // If no page parameter, show home page
+    include 'pages/index.php';
 }

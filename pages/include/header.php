@@ -31,12 +31,12 @@
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="?page=home" class="<?php echo ($_GET['page']=='home') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Home</a>
-                    <a href="?page=products" class="<?php echo ($_GET['page']=='products') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Products</a>
-                    <a href="?page=about" class="<?php echo ($_GET['page']=='about') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">About</a>
-                    <a href="?page=contact" class="<?php echo ($_GET['page']=='contact') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Contact</a>
-                    <a href="?page=login" class="<?php echo ($_GET['page']=='login') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Login</a>
-                    <a href="?page=cart" class="relative <?php echo ($_GET['page']=='cart') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">
+                    <a href="?page=home" class="<?php echo (isset($_GET['page']) && $_GET['page']=='home') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Home</a>
+                    <a href="?page=products" class="<?php echo (isset($_GET['page']) && $_GET['page']=='products') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Products</a>
+                    <a href="?page=about" class="<?php echo (isset($_GET['page']) && $_GET['page']=='about') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">About</a>
+                    <a href="?page=contact" class="<?php echo (isset($_GET['page']) && $_GET['page']=='contact') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Contact</a>
+                    <a href="?page=login" class="<?php echo (isset($_GET['page']) && $_GET['page']=='login') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Login</a>
+                    <a href="?page=cart" class="relative <?php echo (isset($_GET['page']) && $_GET['page']=='cart') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">
                         <i class="fas fa-shopping-cart text-xl"></i>
                         <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </a>
@@ -52,12 +52,12 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="?page=home" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='home') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Home</a>
-                <a href="?page=products" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='products') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Products</a>
-                <a href="?page=about" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='about') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">About</a>
-                <a href="?page=contact" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='contact') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Contact</a>
-                <a href="?page=login" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='login') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Login</a>
-                <a href="?page=cart" class="block px-3 py-2 rounded-md text-base font-medium <?php echo ($_GET['page']=='cart') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Cart (0)</a>
+                <a href="?page=home" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='home') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Home</a>
+                <a href="?page=products" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='products') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Products</a>
+                <a href="?page=about" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='about') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">About</a>
+                <a href="?page=contact" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='contact') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Contact</a>
+                <a href="?page=login" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='login') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Login</a>
+                <a href="?page=cart" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='cart') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Cart (0)</a>
             </div>
         </div>
     </nav>

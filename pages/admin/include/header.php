@@ -66,7 +66,7 @@
             </nav>
 
             <div class="p-4 border-t border-gray-700">
-                <a href="?page=home" class="flex items-center px-4 py-2 text-red-400 hover:bg-gray-700 hover:text-red-300 rounded-lg transition-colors w-full">
+                <a href="?page=logout&logout=admin" class="flex items-center px-4 py-2 text-red-400 hover:bg-gray-700 hover:text-red-300 rounded-lg transition-colors w-full">
                     <i class="fas fa-sign-out-alt w-6"></i>
                     <span class="font-medium">Logout</span>
                 </a>
@@ -101,11 +101,13 @@
                     
                     <div class="flex items-center gap-3 border-l pl-4 ml-2">
                         <div class="text-right hidden sm:block">
-                            <p class="text-sm font-semibold text-gray-800">Admin User</p>
-                            <p class="text-xs text-gray-500">Super Admin</p>
+                            <p class="text-sm font-semibold text-gray-800">
+                                <?php echo isset($_SESSION['admin_username']) ? htmlspecialchars($_SESSION['admin_username']) : 'Admin'; ?>
+                            </p>
+                            <p class="text-xs text-gray-500">Administrator</p>
                         </div>
                         <div class="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">
-                            A
+                            <?php echo isset($_SESSION['admin_username']) ? strtoupper(substr($_SESSION['admin_username'], 0, 1)) : 'A'; ?>
                         </div>
                     </div>
                 </div>

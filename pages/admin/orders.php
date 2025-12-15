@@ -1,4 +1,33 @@
-<?php include "include/header.php"; ?>
+<?php
+session_start();
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Controllers\AdminAuthController;
+use App\Controllers\OrderController;
+
+// Check if admin is logged in
+AdminAuthController::checkAuth();
+
+$orderController = new OrderController();
+
+// Handle status update
+if (isset($_GET['action']) && $_GET['action'] == 'update_status' && isset($_GET['id']) && isset($_GET['status'])) {
+    $result = $orderController->updateOrderStatus($_GET['id'], $_GET['status']);
+    header('Location: ?page=admin/orders&msg=' . urlencode($result['message']));
+    exit();
+}
+
+// Get all orders
+$orders = $orderController->getAllOrders();
+
+include "include/header.php"; 
+?>
+
+    <?php if (isset($_GET['msg'])): ?>
+        <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">
+            <?php echo htmlspecialchars($_GET['msg']); ?>
+        </div>
+    <?php endif; ?>
 
     <div class="mb-6 flex justify-between items-center">
         <div class="relative">
@@ -32,106 +61,66 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 text-sm">
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-medium text-primary">#ORD-7829</td>
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs mr-2">JD</div>
-                                <span class="text-gray-900">John Doe</span>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">Oct 24, 2023</td>
-                        <td class="p-4 font-medium text-gray-900">$79.99</td>
-                        <td class="p-4 text-gray-600">Credit Card</td>
-                        <td class="p-4">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Completed</span>
-                        </td>
-                        <td class="p-4 text-right">
-                            <button class="text-gray-500 hover:text-primary transition-colors"><i class="fas fa-eye"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-medium text-primary">#ORD-7828</td>
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center font-bold text-xs mr-2">JS</div>
-                                <span class="text-gray-900">Jane Smith</span>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">Oct 24, 2023</td>
-                        <td class="p-4 font-medium text-gray-900">$199.50</td>
-                        <td class="p-4 text-gray-600">PayPal</td>
-                        <td class="p-4">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">Pending</span>
-                        </td>
-                        <td class="p-4 text-right">
-                            <button class="text-gray-500 hover:text-primary transition-colors"><i class="fas fa-eye"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-medium text-primary">#ORD-7827</td>
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs mr-2">RJ</div>
-                                <span class="text-gray-900">Robert Johnson</span>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">Oct 23, 2023</td>
-                        <td class="p-4 font-medium text-gray-900">$45.00</td>
-                        <td class="p-4 text-gray-600">Credit Card</td>
-                        <td class="p-4">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">Processing</span>
-                        </td>
-                        <td class="p-4 text-right">
-                            <button class="text-gray-500 hover:text-primary transition-colors"><i class="fas fa-eye"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-medium text-primary">#ORD-7826</td>
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xs mr-2">ED</div>
-                                <span class="text-gray-900">Emily Davis</span>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">Oct 22, 2023</td>
-                        <td class="p-4 font-medium text-gray-900">$120.00</td>
-                        <td class="p-4 text-gray-600">Credit Card</td>
-                        <td class="p-4">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Completed</span>
-                        </td>
-                        <td class="p-4 text-right">
-                            <button class="text-gray-500 hover:text-primary transition-colors"><i class="fas fa-eye"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-medium text-primary">#ORD-7825</td>
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs mr-2">MW</div>
-                                <span class="text-gray-900">Michael Wilson</span>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">Oct 21, 2023</td>
-                        <td class="p-4 font-medium text-gray-900">$35.99</td>
-                        <td class="p-4 text-gray-600">PayPal</td>
-                        <td class="p-4">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">Cancelled</span>
-                        </td>
-                        <td class="p-4 text-right">
-                            <button class="text-gray-500 hover:text-primary transition-colors"><i class="fas fa-eye"></i></button>
-                        </td>
-                    </tr>
+                    <?php if (empty($orders)): ?>
+                        <tr>
+                            <td colspan="7" class="p-8 text-center text-gray-500">
+                                <i class="fas fa-shopping-cart text-4xl mb-2"></i>
+                                <p>No orders found.</p>
+                            </td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($orders as $order): 
+                            $statusColors = [
+                                'Pending' => 'bg-yellow-100 text-yellow-700',
+                                'Processing' => 'bg-blue-100 text-blue-700',
+                                'Completed' => 'bg-green-100 text-green-700',
+                                'Cancelled' => 'bg-red-100 text-red-700'
+                            ];
+                            $statusColor = $statusColors[$order['status']] ?? 'bg-gray-100 text-gray-700';
+                        ?>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4 font-medium text-primary">#<?php echo $order['id']; ?></td>
+                            <td class="p-4">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs mr-2">
+                                        <?php echo strtoupper(substr($order['customer_name'] ?? 'N', 0, 1)); ?>
+                                    </div>
+                                    <span class="text-gray-900"><?php echo htmlspecialchars($order['customer_name'] ?? 'Unknown'); ?></span>
+                                </div>
+                            </td>
+                            <td class="p-4 text-gray-600"><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
+                            <td class="p-4 font-medium text-gray-900">$<?php echo number_format($order['total_amount'], 2); ?></td>
+                            <td class="p-4 text-gray-600">Online</td>
+                            <td class="p-4">
+                                <select onchange="updateStatus(<?php echo $order['id']; ?>, this.value)" class="px-2 py-1 text-xs font-semibold rounded-full <?php echo $statusColor; ?> border-0">
+                                    <option value="Pending" <?php echo $order['status'] == 'Pending' ? 'selected' : ''; ?>>Pending</option>
+                                    <option value="Processing" <?php echo $order['status'] == 'Processing' ? 'selected' : ''; ?>>Processing</option>
+                                    <option value="Completed" <?php echo $order['status'] == 'Completed' ? 'selected' : ''; ?>>Completed</option>
+                                    <option value="Cancelled" <?php echo $order['status'] == 'Cancelled' ? 'selected' : ''; ?>>Cancelled</option>
+                                </select>
+                            </td>
+                            <td class="p-4 text-right">
+                                <button class="text-gray-500 hover:text-primary transition-colors"><i class="fas fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
         <div class="p-4 border-t border-gray-100 flex justify-between items-center">
-            <p class="text-sm text-gray-500">Showing 1 to 5 of 1,452 entries</p>
-            <div class="flex gap-2">
-                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50 disabled:opacity-50">Previous</button>
-                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50">Next</button>
-            </div>
+            <p class="text-sm text-gray-500">Showing <?php echo count($orders); ?> order(s)</p>
         </div>
     </div>
+
+    <script>
+        function updateStatus(orderId, status) {
+            if (confirm('Are you sure you want to update this order status?')) {
+                window.location.href = '?page=admin/orders&action=update_status&id=' + orderId + '&status=' + status;
+            } else {
+                location.reload();
+            }
+        }
+    </script>
 
 <?php include "include/footer.php"; ?>

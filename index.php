@@ -1,7 +1,10 @@
 <?php
-require_once('vendor/autoload.php');
+require_once 'vendor/autoload.php';
 
-use App\controllers\HomeController as Home;
+// If no page parameter is set, default to home
+if (!isset($_GET['page'])) {
+    $_GET['page'] = 'home';
+}
 
-$home = new Home();
-$home->index();
+// Use action.php for routing
+include 'action.php';

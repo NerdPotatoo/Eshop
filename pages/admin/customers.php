@@ -1,4 +1,20 @@
-<?php include "include/header.php"; ?>
+<?php
+session_start();
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Controllers\AdminAuthController;
+use App\Controllers\CustomerController;
+
+// Check if admin is logged in
+AdminAuthController::checkAuth();
+
+$customerController = new CustomerController();
+
+// Get all customers
+$customers = $customerController->getAllCustomers();
+
+include "include/header.php"; 
+?>
 
     <div class="mb-6 flex justify-between items-center">
         <div class="relative">
@@ -23,99 +39,43 @@
                         <th class="p-4 font-semibold">Orders</th>
                         <th class="p-4 font-semibold">Total Spent</th>
                         <th class="p-4 font-semibold">Joined</th>
-                        <th class="p-4 font-semibold text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 text-sm">
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3">JD</div>
-                                <div>
-                                    <p class="font-medium text-gray-900">John Doe</p>
-                                    <p class="text-xs text-gray-500">New York, USA</p>
+                    <?php if (empty($customers)): ?>
+                        <tr>
+                            <td colspan="6" class="p-8 text-center text-gray-500">
+                                <i class="fas fa-users text-4xl mb-2"></i>
+                                <p>No customers found.</p>
+                            </td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($customers as $customer): ?>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold mr-3">
+                                        <?php echo strtoupper(substr($customer['name'], 0, 1)); ?>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900"><?php echo htmlspecialchars($customer['name']); ?></p>
+                                        <p class="text-xs text-gray-500"><?php echo htmlspecialchars($customer['address'] ?? 'No address'); ?></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">john.doe@example.com</td>
-                        <td class="p-4 text-gray-600">+1 (555) 123-4567</td>
-                        <td class="p-4 text-gray-900">12</td>
-                        <td class="p-4 font-medium text-gray-900">$1,245.00</td>
-                        <td class="p-4 text-gray-600">Jan 15, 2023</td>
-                        <td class="p-4 text-right space-x-2">
-                            <button class="text-blue-500 hover:text-blue-700 transition-colors"><i class="fas fa-edit"></i></button>
-                            <button class="text-red-500 hover:text-red-700 transition-colors"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center font-bold mr-3">JS</div>
-                                <div>
-                                    <p class="font-medium text-gray-900">Jane Smith</p>
-                                    <p class="text-xs text-gray-500">London, UK</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">jane.smith@example.com</td>
-                        <td class="p-4 text-gray-600">+44 20 7123 4567</td>
-                        <td class="p-4 text-gray-900">8</td>
-                        <td class="p-4 font-medium text-gray-900">$850.50</td>
-                        <td class="p-4 text-gray-600">Feb 20, 2023</td>
-                        <td class="p-4 text-right space-x-2">
-                            <button class="text-blue-500 hover:text-blue-700 transition-colors"><i class="fas fa-edit"></i></button>
-                            <button class="text-red-500 hover:text-red-700 transition-colors"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mr-3">RJ</div>
-                                <div>
-                                    <p class="font-medium text-gray-900">Robert Johnson</p>
-                                    <p class="text-xs text-gray-500">Toronto, Canada</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">robert.j@example.com</td>
-                        <td class="p-4 text-gray-600">+1 (416) 555-0123</td>
-                        <td class="p-4 text-gray-900">5</td>
-                        <td class="p-4 font-medium text-gray-900">$420.00</td>
-                        <td class="p-4 text-gray-600">Mar 10, 2023</td>
-                        <td class="p-4 text-right space-x-2">
-                            <button class="text-blue-500 hover:text-blue-700 transition-colors"><i class="fas fa-edit"></i></button>
-                            <button class="text-red-500 hover:text-red-700 transition-colors"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold mr-3">ED</div>
-                                <div>
-                                    <p class="font-medium text-gray-900">Emily Davis</p>
-                                    <p class="text-xs text-gray-500">Sydney, Australia</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="p-4 text-gray-600">emily.d@example.com</td>
-                        <td class="p-4 text-gray-600">+61 2 9876 5432</td>
-                        <td class="p-4 text-gray-900">15</td>
-                        <td class="p-4 font-medium text-gray-900">$2,100.00</td>
-                        <td class="p-4 text-gray-600">Apr 05, 2023</td>
-                        <td class="p-4 text-right space-x-2">
-                            <button class="text-blue-500 hover:text-blue-700 transition-colors"><i class="fas fa-edit"></i></button>
-                            <button class="text-red-500 hover:text-red-700 transition-colors"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="p-4 text-gray-600"><?php echo htmlspecialchars($customer['email']); ?></td>
+                            <td class="p-4 text-gray-600"><?php echo htmlspecialchars($customer['phone'] ?? 'N/A'); ?></td>
+                            <td class="p-4 text-gray-900"><?php echo $customer['total_orders']; ?></td>
+                            <td class="p-4 font-medium text-gray-900">$<?php echo number_format($customer['total_spent'], 2); ?></td>
+                            <td class="p-4 text-gray-600"><?php echo date('M d, Y', strtotime($customer['created_at'])); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
         <div class="p-4 border-t border-gray-100 flex justify-between items-center">
-            <p class="text-sm text-gray-500">Showing 1 to 4 of 89 entries</p>
-            <div class="flex gap-2">
-                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50 disabled:opacity-50">Previous</button>
-                <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50">Next</button>
-            </div>
+            <p class="text-sm text-gray-500">Showing <?php echo count($customers); ?> customer(s)</p>
         </div>
     </div>
 
