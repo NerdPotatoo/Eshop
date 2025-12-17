@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS contacts (
 
 -- Insert default admin user (username: admin, password: admin123)
 INSERT INTO admins (username, password_hash) VALUES 
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+('admin', '$2y$10$9oQg/xMwygZZVx98lice4.H9.mZSqr4uS5YoUxwVLP/LJQ.6S8M0O');
 
 -- Insert default categories
 INSERT INTO categories (name, description) VALUES 

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Controllers\AdminAuthController;
@@ -89,7 +91,7 @@ include "include/header.php";
                                 </div>
                             </td>
                             <td class="p-4 text-gray-600"><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
-                            <td class="p-4 font-medium text-gray-900">$<?php echo number_format($order['total_amount'], 2); ?></td>
+                            <td class="p-4 font-medium text-gray-900">$<?php echo number_format($order['total'], 2); ?></td>
                             <td class="p-4 text-gray-600">Online</td>
                             <td class="p-4">
                                 <select onchange="updateStatus(<?php echo $order['id']; ?>, this.value)" class="px-2 py-1 text-xs font-semibold rounded-full <?php echo $statusColor; ?> border-0">

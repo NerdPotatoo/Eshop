@@ -260,6 +260,13 @@ include "include/header.php";
         }
 
         function addToCart(productId) {
+            // Disable button temporarily to prevent double clicks
+            const button = event.target.closest('button');
+            if (button) {
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i>Adding...';
+            }
+
             fetch('action.php', {
                 method: 'POST',
                 headers: {
@@ -267,21 +274,61 @@ include "include/header.php";
                 },
                 body: 'page=add-to-cart&product_id=' + productId + '&quantity=1'
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show success message
-                    alert('Product added to cart successfully!');
-                    // Update cart count in header
-                    updateCartCount();
-                } else {
-                    alert(data.message || 'Failed to add product to cart');
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.text();
+            })
+            .then(text => {
+                console.log('Response text:', text);
+                try {
+                    const data = JSON.parse(text);
+                    if (data.success) {
+                        // Show success message
+                        showNotification('Product added to cart!', 'success');
+                        // Update cart count in header
+                        updateCartCount();
+                    } else {
+                        showNotification(data.message || 'Failed to add product to cart', 'error');
+                    }
+                } catch (e) {
+                    console.error('JSON parse error:', e);
+                    showNotification('Error: Invalid response from server', 'error');
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while adding to cart');
+                console.error('Fetch error:', error);
+                showNotification('An error occurred while adding to cart', 'error');
+            })
+            .finally(() => {
+                // Re-enable button
+                if (button) {
+                    button.disabled = false;
+                    button.innerHTML = '<i class="fas fa-shopping-cart mr-1"></i>Add to Cart';
+                }
             });
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => notification.classList.add('translate-x-0'), 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
 
         function updateCartCount() {

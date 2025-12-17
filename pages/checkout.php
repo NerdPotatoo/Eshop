@@ -1,6 +1,5 @@
 <?php
-require_once 'app/controllers/CartController.php';
-require_once 'app/controllers/UserAuthController.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controllers\CartController;
 use App\Controllers\UserAuthController;
@@ -155,7 +154,7 @@ include 'pages/include/header.php';
                         <div class="space-y-4 mb-6">
                             <?php foreach ($cartItems as $item): ?>
                                 <div class="flex items-center space-x-3">
-                                    <img src="<?php echo !empty($item['image']) ? 'uploads/products/' . htmlspecialchars($item['image']) : 'https://via.placeholder.com/60'; ?>" 
+                                    <img src="<?php echo !empty($item['image']) ? '../' . htmlspecialchars($item['image']) : 'https://via.placeholder.com/60'; ?>" 
                                          alt="<?php echo htmlspecialchars($item['title']); ?>"
                                          class="w-16 h-16 object-cover rounded-md">
                                     <div class="flex-1">

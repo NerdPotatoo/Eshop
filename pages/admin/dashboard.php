@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Controllers\AdminAuthController;
@@ -16,10 +18,10 @@ $conn = $database->connect();
 $totalOrders = $conn->query("SELECT COUNT(*) as count FROM orders")->fetch()['count'] ?? 0;
 $totalProducts = $conn->query("SELECT COUNT(*) as count FROM products")->fetch()['count'] ?? 0;
 $totalCustomers = $conn->query("SELECT COUNT(*) as count FROM users")->fetch()['count'] ?? 0;
-$totalSales = $conn->query("SELECT COALESCE(SUM(total_amount), 0) as total FROM orders WHERE status = 'Completed'")->fetch()['total'] ?? 0;
+$totalSales = $conn->query("SELECT COALESCE(SUM(total), 0) as total FROM orders WHERE status = 'Completed'")->fetch()['total'] ?? 0;
 
 // Fetch recent orders
-$recentOrdersQuery = "SELECT o.id, o.total_amount, o.status, o.created_at, u.name as customer_name 
+$recentOrdersQuery = "SELECT o.id, o.total, o.status, o.created_at, u.name as customer_name 
                       FROM orders o 
                       LEFT JOIN users u ON o.user_id = u.id 
                       ORDER BY o.created_at DESC 
@@ -251,7 +253,7 @@ include "include/header.php";
                                     }
                                     ?>
                                 </td>
-                                <td class="p-4 font-medium text-gray-900">$<?php echo number_format($order['total_amount'], 2); ?></td>
+                                <td class="p-4 font-medium text-gray-900">$<?php echo number_format($order['total'], 2); ?></td>
                                 <td class="p-4">
                                     <span class="px-2 py-1 text-xs font-semibold rounded-full <?php echo $statusColor; ?>">
                                         <?php echo htmlspecialchars($order['status']); ?>

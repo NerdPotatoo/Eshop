@@ -71,7 +71,7 @@ include "include/header.php";
                         <div class="p-6 space-y-6">
                             <?php foreach ($cartItems as $productId => $item): 
                                 $itemTotal = $item['price'] * $item['quantity'];
-                                $imagePath = !empty($item['image']) ? 'uploads/products/' . $item['image'] : 'https://via.placeholder.com/100x100?text=No+Image';
+                                $imagePath = !empty($item['image']) ? '../' . $item['image'] : 'https://via.placeholder.com/100x100?text=No+Image';
                             ?>
                             <div class="flex flex-col sm:flex-row items-center border-b border-gray-200 pb-6 last:border-0 last:pb-0">
                                 <div class="w-full sm:w-24 h-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 mb-4 sm:mb-0">

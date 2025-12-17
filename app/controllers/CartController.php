@@ -168,8 +168,6 @@ class CartController {
                 $stmt->execute();
             }
             
-            $this->conn->commit();
-            
             // Clear cart
             $_SESSION['cart'] = [];
             
@@ -177,7 +175,10 @@ class CartController {
             
             return $orderId;
         } catch (\PDOException $e) {
-            $this->conn->rollBack();
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
+            error_log("Checkout error: " . $e->getMessage());
             return false;
         }
     }
