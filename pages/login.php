@@ -1,4 +1,42 @@
-<?php include "include/header.php"; ?>
+
+<?php 
+require_once __DIR__ . '/../vendor/autoload.php';
+use App\Controllers\UserAuthController;
+
+session_start();
+
+// Redirect if already logged in
+if (UserAuthController::isLoggedIn()) {
+    header('Location: ?page=home');
+    exit;
+}
+
+$error = '';
+$success = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+    
+    if (empty($email) || empty($password)) {
+        $error = 'Please fill in all required fields';
+    } else {
+        $authController = new UserAuthController();
+        $result = $authController->login($email, $password);
+        
+        if ($result['success']) {
+            $success = $result['message'];
+            // Redirect after successful login
+            header('Location: ?page=home');
+            exit;
+        } else {
+            $error = $result['message'];
+        }
+    }
+}
+
+include "include/header.php"; 
+?>
 
     <!-- Login Section -->
     <section class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -10,7 +48,19 @@
                     <p class="mt-2 text-sm text-gray-600">Welcome back! Please enter your details.</p>
                 </div>
 
-                <form class="mt-8 space-y-6">
+                <?php if (!empty($error)): ?>
+                    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <span class="block sm:inline"><i class="fas fa-exclamation-circle mr-2"></i><?php echo htmlspecialchars($error); ?></span>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($success)): ?>
+                    <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        <span class="block sm:inline"><i class="fas fa-check-circle mr-2"></i><?php echo htmlspecialchars($success); ?></span>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST" action="" class="mt-8 space-y-6">
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div class="mb-4">
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>

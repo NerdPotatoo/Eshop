@@ -1,3 +1,11 @@
+
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$isLoggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true;
+$userName = $_SESSION['user_name'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +43,15 @@
                     <a href="?page=products" class="<?php echo (isset($_GET['page']) && $_GET['page']=='products') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Products</a>
                     <a href="?page=about" class="<?php echo (isset($_GET['page']) && $_GET['page']=='about') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">About</a>
                     <a href="?page=contact" class="<?php echo (isset($_GET['page']) && $_GET['page']=='contact') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Contact</a>
-                    <a href="?page=login" class="<?php echo (isset($_GET['page']) && $_GET['page']=='login') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Login</a>
+                    
+                    <?php if ($isLoggedIn): ?>
+                        <span class="text-gray-600"><i class="fas fa-user-circle mr-1"></i>Hi, <?php echo htmlspecialchars(explode(' ', $userName)[0]); ?></span>
+                        <a href="?page=logout" class="text-gray-600 hover:text-primary transition duration-300"><i class="fas fa-sign-out-alt mr-1"></i>Logout</a>
+                    <?php else: ?>
+                        <a href="?page=login" class="<?php echo (isset($_GET['page']) && $_GET['page']=='login') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">Login</a>
+                        <a href="?page=signup" class="bg-primary hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">Sign Up</a>
+                    <?php endif; ?>
+                    
                     <a href="?page=cart" class="relative <?php echo (isset($_GET['page']) && $_GET['page']=='cart') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">
                         <i class="fas fa-shopping-cart text-xl"></i>
                         <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
@@ -56,7 +72,17 @@
                 <a href="?page=products" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='products') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Products</a>
                 <a href="?page=about" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='about') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">About</a>
                 <a href="?page=contact" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='contact') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Contact</a>
-                <a href="?page=login" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='login') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Login</a>
+                
+                <?php if ($isLoggedIn): ?>
+                    <div class="px-3 py-2 text-sm text-gray-600 border-t border-gray-200 mt-2 pt-2">
+                        <i class="fas fa-user-circle mr-1"></i> <?php echo htmlspecialchars($userName); ?>
+                    </div>
+                    <a href="?page=logout" class="block px-3 py-2 rounded-md text-base font-medium text-red-600 hover:text-red-700 hover:bg-red-50"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+                <?php else: ?>
+                    <a href="?page=login" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='login') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Login</a>
+                    <a href="?page=signup" class="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white hover:bg-indigo-700">Sign Up</a>
+                <?php endif; ?>
+                
                 <a href="?page=cart" class="block px-3 py-2 rounded-md text-base font-medium <?php echo (isset($_GET['page']) && $_GET['page']=='cart') ? 'text-primary bg-gray-50' : 'text-gray-600 hover:text-primary hover:bg-gray-50'; ?>">Cart (0)</a>
             </div>
         </div>
