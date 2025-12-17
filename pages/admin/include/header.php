@@ -56,10 +56,16 @@
                             <span class="font-medium">Customers</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="?page=admin/contacts" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors <?php echo ($_GET['page'] == 'admin/contacts') ? 'bg-primary text-white' : ''; ?>">
+                            <i class="fas fa-envelope w-6"></i>
+                            <span class="font-medium">Contacts</span>
+                        </a>
+                    </li>
                     <li class="pt-4 mt-4 border-t border-gray-700">
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors">
-                            <i class="fas fa-cog w-6"></i>
-                            <span class="font-medium">Settings</span>
+                        <a href="?page=home" target="_blank" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors">
+                            <i class="fas fa-external-link-alt w-6"></i>
+                            <span class="font-medium">Visit Site</span>
                         </a>
                     </li>
                 </ul>
