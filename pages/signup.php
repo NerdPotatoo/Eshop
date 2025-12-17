@@ -3,7 +3,9 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 use App\Controllers\UserAuthController;
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Redirect if already logged in
 if (UserAuthController::isLoggedIn()) {
