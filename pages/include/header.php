@@ -5,6 +5,12 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $isLoggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true;
 $userName = $_SESSION['user_name'] ?? '';
+
+// Get cart count
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Controllers\CartController;
+$cartController = new CartController();
+$cartCount = $cartController->getCartCount();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +60,9 @@ $userName = $_SESSION['user_name'] ?? '';
                     
                     <a href="?page=cart" class="relative <?php echo (isset($_GET['page']) && $_GET['page']=='cart') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary transition duration-300'; ?>">
                         <i class="fas fa-shopping-cart text-xl"></i>
-                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center <?php echo $cartCount > 0 ? '' : 'hidden'; ?>">
+                            <?php echo $cartCount; ?>
+                        </span>
                     </a>
                 </div>
                 <!-- Mobile menu button -->

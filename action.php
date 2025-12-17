@@ -2,6 +2,35 @@
 
 require_once 'vendor/autoload.php';
 
+use App\Controllers\CartController;
+
+// Handle AJAX requests
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['page'])) {
+    if ($_POST['page'] === 'add-to-cart') {
+        header('Content-Type: application/json');
+        $cartController = new CartController();
+        
+        $productId = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+        $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+        
+        if ($productId > 0 && $quantity > 0) {
+            $result = $cartController->addToCart($productId, $quantity);
+            echo json_encode($result);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Invalid product or quantity']);
+        }
+        exit;
+    }
+}
+
+// Handle AJAX GET requests
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['page']) && $_GET['page'] === 'cart-count') {
+    header('Content-Type: application/json');
+    $cartController = new CartController();
+    echo json_encode(['count' => $cartController->getCartCount()]);
+    exit;
+}
+
 if(isset($_GET['page'])) {
     if($_GET['page'] == 'home') {
         include 'pages/index.php';
@@ -24,6 +53,12 @@ if(isset($_GET['page'])) {
     else if($_GET['page'] == 'cart') {
         include 'pages/cart.php';
     } 
+    else if($_GET['page'] == 'checkout') {
+        include 'pages/checkout.php';
+    }
+    else if($_GET['page'] == 'order-confirmation') {
+        include 'pages/order-confirmation.php';
+    }
     else if($_GET['page'] == 'admin/dashboard') {
         include 'pages/admin/dashboard.php';
     }

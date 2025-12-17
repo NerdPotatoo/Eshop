@@ -44,7 +44,7 @@ class OrderController {
 
     public function getOrderItems($orderId) {
         try {
-            $query = "SELECT oi.*, p.title as product_name, p.image as product_image 
+            $query = "SELECT oi.*, p.title, p.image 
                       FROM order_items oi 
                       LEFT JOIN products p ON oi.product_id = p.id 
                       WHERE oi.order_id = :order_id";

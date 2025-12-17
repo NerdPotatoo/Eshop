@@ -260,9 +260,41 @@ include "include/header.php";
         }
 
         function addToCart(productId) {
-            // TODO: Implement cart functionality
-            alert('Product added to cart! (Cart functionality coming soon)');
-            // Future implementation will use AJAX to add to session cart
+            fetch('action.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'page=add-to-cart&product_id=' + productId + '&quantity=1'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    alert('Product added to cart successfully!');
+                    // Update cart count in header
+                    updateCartCount();
+                } else {
+                    alert(data.message || 'Failed to add product to cart');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding to cart');
+            });
+        }
+
+        function updateCartCount() {
+            fetch('action.php?page=cart-count')
+                .then(response => response.json())
+                .then(data => {
+                    const cartCountElement = document.getElementById('cart-count');
+                    if (cartCountElement && data.count > 0) {
+                        cartCountElement.textContent = data.count;
+                        cartCountElement.classList.remove('hidden');
+                    }
+                })
+                .catch(error => console.error('Error updating cart count:', error));
         }
     </script>
 

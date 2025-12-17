@@ -67,10 +67,10 @@ $featuredProducts = $productController->getFeaturedProducts(6);
                     <!-- Product showcase grid -->
                     <div class="grid grid-cols-2 gap-4">
                         <?php 
-                        $heroProducts = array_slice($featuredProducts, 0, 4);
+                        $heroProducts = array_slice($featuredProducts, 0, 3);
                         if (!empty($heroProducts)):
                             foreach ($heroProducts as $index => $product): 
-                                $imagePath = !empty($product['image']) ? 'uploads/products/' . $product['image'] : 'https://via.placeholder.com/300x300?text=No+Image';
+                                $imagePath = !empty($product['image']) ? '../' . $product['image'] : 'https://via.placeholder.com/300x300?text=No+Image';
                         ?>
                             <div class="<?php echo $index === 0 ? 'col-span-2' : ''; ?> bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 hover:shadow-2xl">
                                 <img src="<?php echo htmlspecialchars($imagePath); ?>" 
@@ -118,7 +118,7 @@ $featuredProducts = $productController->getFeaturedProducts(6);
                         <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
                             <div class="relative overflow-hidden">
                                 <?php 
-                                $imagePath = !empty($product['image']) ? 'uploads/products/' . $product['image'] : 'https://via.placeholder.com/400x300?text=No+Image';
+                                $imagePath = !empty($product['image']) ? '../' . $product['image'] : 'https://via.placeholder.com/400x300?text=No+Image';
                                 ?>
                                 <img src="<?php echo htmlspecialchars($imagePath); ?>" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-500" alt="<?php echo htmlspecialchars($product['title']); ?>">
                                 <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
@@ -191,6 +191,45 @@ $featuredProducts = $productController->getFeaturedProducts(6);
             </div>
         </div>
     </section>
+
+    <!-- Add to Cart Script -->
+    <script>
+        function addToCart(productId) {
+            fetch('action.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'page=add-to-cart&product_id=' + productId + '&quantity=1'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Product added to cart successfully!');
+                    updateCartCount();
+                } else {
+                    alert(data.message || 'Failed to add product to cart');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding to cart');
+            });
+        }
+
+        function updateCartCount() {
+            fetch('action.php?page=cart-count')
+                .then(response => response.json())
+                .then(data => {
+                    const cartCountElement = document.getElementById('cart-count');
+                    if (cartCountElement && data.count > 0) {
+                        cartCountElement.textContent = data.count;
+                        cartCountElement.classList.remove('hidden');
+                    }
+                })
+                .catch(error => console.error('Error updating cart count:', error));
+        }
+    </script>
 
     <!-- Footer -->
    <?php include "include/footer.php"; ?>

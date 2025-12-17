@@ -90,4 +90,20 @@ class UserAuthController {
     public static function getUserId() {
         return $_SESSION['user_id'] ?? null;
     }
+
+    public function getUserById($userId) {
+        try {
+            $query = "SELECT * FROM users WHERE id = :id LIMIT 1";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $userId);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            return null;
+        } catch (\PDOException $e) {
+            return null;
+        }
+    }
 }
